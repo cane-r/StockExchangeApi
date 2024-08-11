@@ -42,6 +42,16 @@ public class EventListener {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void handleStockAddedToExchangeEvent(StockAddedToExchangeEvent event) {
         String exchangeName = event.getStockExchangeName();
+
+//        note that addStock/removeStock lines has to be removed from StockExchangeService
+//        Stock stock = event.getStock();
+//
+//        StockExchange stockExchange = stockExchangeJpaRepository.findByName(exchangeName).orElseThrow(() -> new StockException(String.format("Exchange with name %s not found on this server!",exchangeName)));
+//
+//        stockExchange.addStock(stock);
+//
+//        stockExchangeJpaRepository.save(stockExchange);
+
         Long count = stockExchangeJpaRepository.countStocksByExchangeName(exchangeName);
         log.info("handleStockAddedToExchangeEvent event listener!");
         if(count >= threshold) {
@@ -58,6 +68,16 @@ public class EventListener {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void handleStockRemovedFromExchangeEvent(StockRemovedFromExchangeEvent event) {
         String exchangeName = event.getStockExchangeName();
+
+//        note that addStock/removeStock lines has to be removed from StockExchangeService
+//        Stock stock = event.getStock();
+//
+//        StockExchange stockExchange = stockExchangeJpaRepository.findByName(exchangeName).orElseThrow(() -> new StockException(String.format("Exchange with name %s not found on this server!",exchangeName)));
+//
+//        stockExchange.removeStock(stock);
+//
+//        stockExchangeJpaRepository.save(stockExchange);
+
         Long count = stockExchangeJpaRepository.countStocksByExchangeName(exchangeName);
         log.info("handleStockRemovedFromExchangeEvent event listener!");
         if(count < threshold) {
